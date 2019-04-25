@@ -1,12 +1,9 @@
 """
 Copyright 2018 Google LLC
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     https://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +25,6 @@ import utils as utils
 
 class CAV(object):
   """CAV class contains methods for concept activation vector (CAV).
-
   CAV represents semenatically meaningful vector directions in
   network's embeddings (bottlenecks).
   """
@@ -36,10 +32,8 @@ class CAV(object):
   @staticmethod
   def default_hparams():
     """HParams used to train the CAV.
-
     you can use logistic regression or linear regression, or different
     regularization of the CAV parameters.
-
     Returns:
       TF.HParams for training.
     """
@@ -48,10 +42,8 @@ class CAV(object):
   @staticmethod
   def load_cav(cav_path):
     """Make a CAV instance from a saved CAV (pickle file).
-
     Args:
       cav_path: the location of the saved CAV
-
     Returns:
       CAV instance.
     """
@@ -67,13 +59,11 @@ class CAV(object):
   @staticmethod
   def cav_key(concepts, bottleneck, model_type, alpha):
     """A key of this cav (useful for saving files).
-
     Args:
       concepts: set of concepts used for CAV
       bottleneck: the bottleneck used for CAV
       model_type: the name of model for CAV
       alpha: a parameter used to learn CAV
-
     Returns:
       a string cav_key
     """
@@ -83,13 +73,11 @@ class CAV(object):
   @staticmethod
   def check_cav_exists(cav_dir, concepts, bottleneck, cav_hparams):
     """Check if a CAV is saved in cav_dir.
-
     Args:
       cav_dir: where cav pickles might be saved
       concepts: set of concepts used for CAV
       bottleneck: the bottleneck used for CAV
       cav_hparams: a parameter used to learn CAV
-
     Returns:
       True if exists, False otherwise.
     """
@@ -102,9 +90,7 @@ class CAV(object):
   @staticmethod
   def _create_cav_training_set(concepts, bottleneck, acts):
     """Flattens acts, make mock-labels and returns the info.
-
     Labels are assigned in the order that concepts exists.
-
     Args:
         concepts: names of concepts
         bottleneck: the name of bottleneck where acts come from
@@ -135,7 +121,6 @@ class CAV(object):
 
   def __init__(self, concepts, bottleneck, hparams, save_path=None):
     """Initialize CAV class.
-
     Args:
       concepts: set of concepts used for CAV
       bottleneck: the bottleneck used for CAV
@@ -149,7 +134,6 @@ class CAV(object):
 
   def train(self, acts):
     """Train the CAVs from the activations.
-
     Args:
       acts: is a dictionary of activations. In particular, acts takes for of
             {'concept1':{'bottleneck name1':[...act array...],
@@ -182,13 +166,11 @@ class CAV(object):
 
   def perturb_act(self, act, concept, operation=np.add, alpha=1.0):
     """Make a perturbation of act with a direction of this CAV.
-
     Args:
       act: activations to be perturbed
       concept: the concept to perturb act with.
       operation: the operation will be ran to perturb.
       alpha: size of the step.
-
     Returns:
       perturbed activation: same shape as act
     """
@@ -204,10 +186,8 @@ class CAV(object):
 
   def get_direction(self, concept):
     """Get CAV direction.
-
     Args:
       concept: the conept of interest
-
     Returns:
       CAV vector.
     """
@@ -231,20 +211,16 @@ class CAV(object):
 
   def _train_lm(self, lm, x, y, labels2text):
     """Train a model to get CAVs.
-
     Modifies lm by calling the lm.fit functions. The cav coefficients are then
     in lm._coefs.
-
     Args:
       lm: An sklearn linear_model object. Can be linear regression or
         logistic regression. Must support .fit and ._coef.
       x: An array of training data of shape [num_data, data_dim]
       y: An array of integer labels of shape [num_data]
       labels2text: Dictionary of text for each label.
-
     Returns:
       Dictionary of accuracies of the CAVs.
-
     """
     x_train, x_test, y_train, y_test = train_test_split(
         x, y, test_size=0.33, stratify=y)
@@ -276,9 +252,7 @@ def get_or_train_cav(concepts,
                      cav_hparams=None,
                      overwrite=False):
   """Gets, creating and training if necessary, the specified CAV.
-
   Assumes the activations already exists.
-
   Args:
     concepts: set of concepts used for CAV
             Note: if there are two concepts, provide the positive concept
@@ -289,7 +263,6 @@ def get_or_train_cav(concepts,
     cav_dir: a directory to store the results.
     cav_hparams: a parameter used to learn CAV
     overwrite: if set to True overwrite any saved CAV files.
-
   Returns:
     returns a CAV instance
   """

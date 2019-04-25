@@ -210,14 +210,16 @@ def print_results(results, random_counterpart=None, random_concepts=None, num_ra
         i_ups = [item['i_up'] for item in result_summary[concept][bottleneck]]
         
         # Calculate statistical significance
-        _, p_val = ttest_ind(random_i_ups[bottleneck], i_ups)
+#         _, p_val = ttest_ind(random_i_ups[bottleneck][:3], i_ups)
+#         print(p_val, min_p_val)
                   
-        print(3 * " ", "Bottleneck =", ("%s. TCAV Score = %.2f (+- %.2f), "
-            "random was %.2f (+- %.2f). p-val = %.3f (%s)") % (
-            bottleneck, np.mean(i_ups), np.std(i_ups),
-            np.mean(random_i_ups[bottleneck]),
-            np.std(random_i_ups[bottleneck]), p_val,
-            "not significant" if p_val > min_p_val else "significant"))
+#         print(3 * " ", "Bottleneck =", ("%s. TCAV Score = %.2f (+- %.2f), "
+#             "random was %.2f (+- %.2f). p-val = %.3f (%s)") % (
+#             bottleneck, np.mean(i_ups), np.std(i_ups),
+#             np.mean(random_i_ups[bottleneck]),
+#             np.std(random_i_ups[bottleneck]), p_val,
+#             "not significant" if p_val > min_p_val else "significant"))
+    print(result_summary)
 
 
 def make_dir_if_not_exists(directory):

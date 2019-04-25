@@ -313,6 +313,7 @@ class TCAV(object):
     if self.random_counterpart is None:
       # TODO random500_1 vs random500_0 is the same as 1 - (random500_0 vs random500_1)
       for i in xrange(num_random_exp):
+        print(get_random_concept(i))
         all_concepts_randoms_tmp, pairs_to_run_randoms_tmp = (
             utils.process_what_to_run_expand(
                 utils.process_what_to_run_randoms(target_concept_pairs,
